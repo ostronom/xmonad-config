@@ -66,6 +66,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask, xK_c), kill)
 
     -- Cycle through layouts
+    , ((modMask, xK_space), sendMessage NextLayout)
+
+    -- Back to default layout
     , ((modMask .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
 
     -- Refresh window

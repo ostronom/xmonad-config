@@ -4,6 +4,7 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spiral
@@ -105,9 +106,10 @@ myStartupHook = return ()
 
 main = do
     xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar.hs"
-    xmonad $ defaults {
+    xmonad $ withUrgencyHook NoUrgencyHook $ defaults {
         logHook = dynamicLogWithPP $ xmobarPP {
               ppOutput = hPutStrLn xmproc
+            , ppUrgent = xmobarColor "yellow" "red" . xmobarStrip
             , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
             , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
             , ppSep = "   "}
